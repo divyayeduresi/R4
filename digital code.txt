@@ -1,0 +1,45 @@
+
+//digital clock code
+
+void time(int tm,int um,int ts,int us);
+void time(int tm,int um,int ts,int us)
+{
+	int i,k;
+	unsigned char mux7segdisplay[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+	for(k=0;k<110;k++)
+	{
+	Bits2_PutVal(0x7);
+	Bits1_PutVal(~mux7segdisplay[tm]);
+	for(i=0;i<0xfff;i++);
+	Bits2_PutVal(0xb);
+		Bits1_PutVal(~mux7segdisplay[um]);
+		for(i=0;i<0xfff;i++);
+		Bits2_PutVal(0xd);
+			Bits1_PutVal(~mux7segdisplay[ts]);
+			for(i=0;i<0xfff;i++);
+			Bits2_PutVal(0xe);
+				Bits1_PutVal(~mux7segdisplay[us]);
+				for(i=0;i<0xfff;i++);
+	}
+}
+
+while(1)
+  {
+	  int tm,um,ts,us;
+
+ for(tm=0;tm<7;tm++)
+	  {
+		  for(um=0;um<10;um++)
+		  {
+			  for(ts=0;ts<7;ts++)
+			  {
+				  for(us=0;us<10;us++)
+				  {
+					  time(tm,um,ts,us);
+				  }
+			  }
+		  }
+	  }
+}
+			  
+	  
